@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     before_action :logged_in_user, only: [:edit, :update, :dashboard]
+    before_action :correct_user, only: [:update]
 
     def new
         @user = User.new
@@ -49,10 +50,19 @@ class UsersController < ApplicationController
             params.require(:user).permit(:username, :email, :password)
         end
 
-        # Confirms a logged-in user.
-            def logged_in_user
-              unless logged_in?
+        # Confirms a logged-in user
+        def logged_in_user
+            unless logged_in?
                 redirect_to root_path, flash: { notice: "Please log in." }
-              end
             end
+        end
+
+        # Confirms the correct user
+        def correct_user
+            @user = User.find(params[:id])
+
+            flash[:notice] = "Unauthorized user!"
+
+            redirect_to(root_path) unless @user == current_user
+        end
 end
