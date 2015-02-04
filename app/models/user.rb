@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
     has_secure_password
-    
-    validates_presence_of :password, :on => :create
+
+    # TODO: more thorough validations
+    validates_presence_of :username, :email, :password, :on => :create
 end
