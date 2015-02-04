@@ -10,13 +10,12 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
-          redirect_to user_path(@user.id), flash: { notice: "Thanks for signing up!" }
+            redirect_to user_path(@user.id), flash: { notice: "Thanks for signing up!" }
         else
-            p @user.errors.messages
-          flash[:notice] = "You entered some invalid data!"
-          
-          # TODO: store errors in flash and redirect instead of rendering new?
-          render "new"
+            flash[:notice] = "You entered some invalid data!"
+
+            # TODO: store errors in flash and redirect instead of rendering new?
+            render "new"
         end
     end
 
@@ -36,12 +35,12 @@ class UsersController < ApplicationController
         else
             flash[:notice] = "You entered some invalid data!"
 
-          render 'edit'
+            render 'edit'
         end
     end
 
     def dashboard
-        p 'hahahah'
+        # TODO: what's going on the fuckin' dashboard?!
     end
 
     private
@@ -50,11 +49,11 @@ class UsersController < ApplicationController
             params.require(:user).permit(:username, :email, :password)
         end
 
-        # Confirms a logged-in user
+        # confirms a logged-in user
         def logged_in_user
             unless logged_in?
                 store_location
-                
+
                 redirect_to root_path, flash: { notice: "Please log in." }
             end
         end

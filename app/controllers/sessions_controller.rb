@@ -1,14 +1,8 @@
 class SessionsController < ApplicationController
     def create
-        p login_params[:username]
-
         user = User.find_by(username: login_params[:username])
 
         if user && user.authenticate(login_params[:password])
-            # Log the user in and redirect to the user's show page.
-            p 'LOGGED IN'
-            p user
-
             log_in user
             remember user
 
