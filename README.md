@@ -18,3 +18,12 @@ More forthcoming!
 For questions, comments, etc., please email me:
 
 josh@devbootcamp.com
+
+### TODO
+
+##### Entities
+
+- User (mentor, mentee?)
+- Appointment (3 states: requested, fulfilled, and completed)
+- Feedback
+- Location (mixin?)
