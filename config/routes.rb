@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'register' => 'users#new'
   get 'deactivate' => 'users#destroy'
 
+  get 'dashboard' => 'users#dashboard'
+
   resources :users, except: [:index, :new, :destroy]
 
   # Example of regular route:
