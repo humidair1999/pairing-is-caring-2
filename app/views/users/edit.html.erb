@@ -1,0 +1,23 @@
+<% @page_title = "UserAuth | Edit" %>
+
+<% if @user.errors.any? %>
+    <div>
+        <%= flash[:notice] %>
+    </div>
+
+    <div>
+        <%= @user.errors.full_messages.first %>
+    </div>
+ 
+<% end %>
+
+<div class="Sign_Form">
+    <h1>Edit info</h1>
+
+    <%= form_for @user do |f| %>
+        <p> Username:</br> <%= f.text_field :username %> </p>
+        <p> Email:</br> <%= f.text_field :email %> </p>
+        <p> Password:</br> <%= f.password_field :password %></p>
+        <%= f.submit :Signup %>
+    <% end %>
+</div>

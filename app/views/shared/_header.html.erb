@@ -4,6 +4,8 @@
     <%= flash[:notice] if flash[:notice] %>
 
     <% if logged_in? %>
+        <%= link_to "edit my info", update_path %>
+
         <%= link_to "log out", logout_path, :method => :delete %>
     <% else %>
         <%= form_for(:session, url: login_path) do |f| %>

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     has_secure_password
 
     # TODO: more thorough validations
-    validates_presence_of :username, :email, :password, :on => :create
+    validates_presence_of :username, :email, :password
 
     # TODO: is case_sensitive check necessary with the downcases above?
     validates :email, length: { maximum: 160 }, uniqueness: { case_sensitive: false }
