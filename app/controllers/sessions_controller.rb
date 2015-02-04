@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
             p 'LOGGED IN'
             p user
 
+            log_in user
+
             redirect_to dashboard_path
         else
             redirect_to root_path, flash: { notice: "Sorry, your username or password wasn't correct!" }
@@ -20,7 +22,9 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-
+        log_out
+        
+        redirect_to root_path, flash: { notice: "You've been logged out. Thanks for visiting!" }
     end
 
     private

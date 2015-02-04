@@ -3,15 +3,19 @@
 
     <%= flash[:notice] if flash[:notice] %>
 
-    <%= form_for(:session, url: login_path) do |f| %>
+    <% if logged_in? %>
+        <%= link_to "log out", logout_path, :method => :delete %>
+    <% else %>
+        <%= form_for(:session, url: login_path) do |f| %>
+            <%= f.label :username %>
+            <%= f.text_field :username %>
 
-          <%= f.label :username %>
-          <%= f.text_field :username %>
+            <%= f.label :password %>
+            <%= f.password_field :password %>
 
-          <%= f.label :password %>
-          <%= f.password_field :password %>
-
-          <%= f.submit "Log in" %>
+            <%= f.submit "Log in" %>
         <% end %>
-    <%= link_to "register", register_path %>
+
+        <%= link_to "register", register_path %>
+    <% end %>
 </div>
