@@ -1,8 +1,4 @@
 class SessionsController < ApplicationController
-    def new
-
-    end
-
     def create
         p login_params[:username]
 
@@ -14,6 +10,7 @@ class SessionsController < ApplicationController
             p user
 
             log_in user
+            remember user
 
             redirect_to dashboard_path
         else
@@ -22,8 +19,8 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        log_out
-        
+        log_out if logged_in?
+
         redirect_to root_path, flash: { notice: "You've been logged out. Thanks for visiting!" }
     end
 
