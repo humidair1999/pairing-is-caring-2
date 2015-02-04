@@ -53,6 +53,8 @@ class UsersController < ApplicationController
         # Confirms a logged-in user
         def logged_in_user
             unless logged_in?
+                store_location
+                
                 redirect_to root_path, flash: { notice: "Please log in." }
             end
         end
@@ -63,6 +65,6 @@ class UsersController < ApplicationController
 
             flash[:notice] = "Unauthorized user!"
 
-            redirect_to(root_path) unless @user == current_user
+            redirect_to(root_path) unless current_user?(@user)
         end
 end

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
             log_in user
             remember user
 
-            redirect_to dashboard_path
+            redirect_back_or dashboard_path
         else
             redirect_to root_path, flash: { notice: "Sorry, your username or password wasn't correct!" }
         end
