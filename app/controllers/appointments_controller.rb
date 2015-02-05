@@ -2,11 +2,11 @@ class AppointmentsController < ApplicationController
     before_action :logged_in_user, only: [:new]
 
     def new
-        @appointment = current_user.appointments.create
+        @appointment = current_user.appointments.build
     end
 
     def create
-        @appointment = current_user.appointments.create(appointment_params)
+        @appointment = current_user.appointments.build(appointment_params)
 
         if @appointment.save
             redirect_to dashboard_path, flash: { global: "New available appointment created!" }
