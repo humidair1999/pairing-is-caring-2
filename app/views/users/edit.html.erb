@@ -1,18 +1,9 @@
 <% @page_title = "UserAuth | Edit" %>
 
-<% if flash[:validation] %>
-    <div>
-        <%= flash[:validation] %>
-    </div>
-<% end %>
+<%= render "shared/validation" %>
 
 <div class="Sign_Form">
     <h1>Edit info</h1>
 
-    <%= form_for @user do |f| %>
-        <p> Username:</br> <%= f.text_field :username %> </p>
-        <p> Email:</br> <%= f.text_field :email %> </p>
-        <p> Password:</br> <%= f.password_field :password %></p>
-        <%= f.submit :Signup %>
-    <% end %>
+    <%= render @user %>
 </div>
