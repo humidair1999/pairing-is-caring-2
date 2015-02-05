@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :users, except: [:index, :new, :destroy, :edit]
 
+  resources :appointments
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
