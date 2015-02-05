@@ -1,12 +1,8 @@
 <% @page_title = "UserAuth | Edit" %>
 
-<% if @user.errors.any? %>
+<% if flash[:validation] %>
     <div>
-        <%= flash[:notice] %>
-    </div>
-
-    <div>
-        <%= @user.errors.full_messages.first %>
+        <%= flash[:validation] %>
     </div>
 <% end %>
 

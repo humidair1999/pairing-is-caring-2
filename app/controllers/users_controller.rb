@@ -10,12 +10,10 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
-            redirect_to user_path(@user.id), flash: { notice: "Thanks for signing up!" }
+            redirect_to root_path, flash: { global: "Thanks for signing up! Please log in." }
         else
-            flash[:notice] = "You entered some invalid data!"
-
-            # TODO: store errors in flash and redirect instead of rendering new?
-            render "new"
+            # TODO: store values in inputs so redirect doesn't wipe out user input
+            redirect_to register_path, flash: { validation: @user.errors.full_messages.first }
         end
     end
 
@@ -31,11 +29,10 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
 
         if @user.update(user_params)
-            redirect_to dashboard_path, flash: { notice: "Your information has been updated!" }
+            redirect_to dashboard_path, flash: { global: "Your information has been updated!" }
         else
-            flash[:notice] = "You entered some invalid data!"
-
-            render 'edit'
+            # TODO: store values in inputs so redirect doesn't wipe out user input
+            redirect_to update_path, flash: { validation: @user.errors.full_messages.first }
         end
     end
 
@@ -54,7 +51,7 @@ class UsersController < ApplicationController
             unless logged_in?
                 store_location
 
-                redirect_to root_path, flash: { notice: "Please log in." }
+                redirect_to root_path, flash: { global: "Please log in." }
             end
         end
 
@@ -62,8 +59,8 @@ class UsersController < ApplicationController
         def correct_user
             @user = User.find(params[:id])
 
-            flash[:notice] = "Unauthorized user!"
-
-            redirect_to(root_path) unless current_user?(@user)
+            unless current_user?(@user)
+                redirect_to root_path, flash: { global: "Unauthorized user!" }
+            end
         end
 end

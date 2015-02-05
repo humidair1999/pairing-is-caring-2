@@ -1,8 +1,6 @@
 <div class="debug">
     <%= link_to "home", controller: "welcome", action: "index" %>
 
-    <%= flash[:notice] if flash[:notice] %>
-
     <% if logged_in? %>
         <%= link_to "edit my info", update_path %>
 

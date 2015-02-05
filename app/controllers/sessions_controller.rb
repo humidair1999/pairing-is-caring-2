@@ -8,14 +8,14 @@ class SessionsController < ApplicationController
 
             redirect_back_or dashboard_path
         else
-            redirect_to root_path, flash: { notice: "Sorry, your username or password wasn't correct!" }
+            redirect_to root_path, flash: { global: "Sorry, your username or password wasn't correct!" }
         end
     end
 
     def destroy
         log_out if logged_in?
 
-        redirect_to root_path, flash: { notice: "You've been logged out. Thanks for visiting!" }
+        redirect_to root_path, flash: { global: "You've been logged out. Thanks for visiting!" }
     end
 
     private
