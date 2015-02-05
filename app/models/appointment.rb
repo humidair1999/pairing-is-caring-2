@@ -1,11 +1,13 @@
+# TODO: need to validate/escape "notes" field for security?
+
 class Appointment < ActiveRecord::Base
     before_save { self.city = city.downcase }
 
     validates :city, inclusion: { in: ["San Francisco", "Chicago", "New York City"] }
     validate :scheduled_for_is_datetime?
 
-    # belongs_to :student
-    # belongs_to :mentor
+    belongs_to :user
+    validates :user, presence: true
 
     private
 

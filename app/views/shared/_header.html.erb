@@ -1,7 +1,11 @@
 <div class="debug">
-    <%= link_to "home", controller: "welcome", action: "index" %>
+    <%= link_to "home", root_path %>
 
     <% if logged_in? %>
+        <%= link_to "my dashboard", dashboard_path %>
+
+        <%= link_to "offer to mentor", new_appointment_path %>
+
         <%= link_to "edit my info", update_path %>
 
         <%= link_to "log out", logout_path, :method => :delete %>

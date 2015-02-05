@@ -1,3 +1,6 @@
+# TODO: add twitter handle (remove @ symbol if it exists)
+# TODO: add short bio text area (remember to escape shit)
+
 class User < ActiveRecord::Base
     attr_accessor :remember_token
 
@@ -12,6 +15,8 @@ class User < ActiveRecord::Base
     # TODO: is case_sensitive check necessary with the downcases above?
     validates :email, length: { maximum: 160 }, uniqueness: { case_sensitive: false }
     validates :username, length: { maximum: 30 }, uniqueness: { case_sensitive: false }
+
+    has_many :appointments
 
     # returns the hash digest of the given string
     def User.digest(string)

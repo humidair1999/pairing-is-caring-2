@@ -1,4 +1,18 @@
-DASHBOARD
+<h2>DASHBOARD</h2>
+
+<h3>Hello, <%= @user.username %>!</h3>
+
+<h5>All my appointments</h5>
+
+<ul>
+    <% @user.appointments.each do |appt| %>
+        <li>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <br>
+            <span><%= appt.notes %></span>
+        </li>
+    <% end %>
+</ul>
 
 <!-- TODO: MY APPOINTMENTS -->
 <!-- TODO: list of available appointments that students have accepted -->

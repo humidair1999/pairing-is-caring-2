@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     end
 
     def edit
-        @user = User.find(current_user)
+        @user = current_user
     end
 
     def update
@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
     def dashboard
         # TODO: what's going on the fuckin' dashboard?!
+        @user = current_user
     end
 
     private

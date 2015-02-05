@@ -3,8 +3,9 @@ class CreateAppointments < ActiveRecord::Migration
     create_table :appointments do |t|
       t.datetime :scheduled_for
       t.string :city
-      # t.references :student
-      # t.references :mentor
+      t.text :notes
+
+      t.belongs_to :user
 
       t.timestamps
     end
