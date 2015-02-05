@@ -1,1 +1,19 @@
-new appt
+<% @page_title = "Offer to Mentor" %>
+
+<%= render "shared/validation" %>
+
+<div>
+    <h1>Offer to Mentor</h1>
+
+    <%= form_for @appointment do |f| %>
+        <%= f.select(:city, options_for_select(
+            [
+                ['San Francisco', 'San Francisco'],
+                ['Chicago', 'Chicago'],
+                ['New York City', 'New York City']
+            ], 1)) %>
+        <p> Date and time:</br> <%= f.text_field :scheduled_for %> </p>
+        <p> Notes:</br> <%= f.text_field :notes %></p>
+        <%= f.submit %>
+    <% end %>
+</div>
