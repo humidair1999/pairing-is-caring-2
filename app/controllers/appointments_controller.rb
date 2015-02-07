@@ -7,6 +7,8 @@ class AppointmentsController < ApplicationController
 
     def new
         @appointment = current_user.appointments.build
+
+        @all_appointment_requests = AppointmentRequest.all
     end
 
     def create

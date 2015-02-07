@@ -1,4 +1,6 @@
 # TODO: need to validate/escape "notes" field for security?
+# TODO: abstract core functionality into base model that appointments and requests
+#  can inherit from
 
 class Appointment < ActiveRecord::Base
     include AASM

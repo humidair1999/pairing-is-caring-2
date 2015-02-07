@@ -83,3 +83,30 @@ user2.appointments.create({
     scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
     city: 'New York City',
     notes: 'some weird fake notes about some dumb shit' });
+
+user3 = User.create({ username: 'derek', email: 'lol3', password: 'lol' });
+
+user3.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user3.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user.appointment_requests.create({
+    desired_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user2.appointment_requests.create({
+    desired_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user3.appointment_requests.create({
+    desired_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });

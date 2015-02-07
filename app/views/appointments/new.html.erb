@@ -19,3 +19,16 @@
 </div>
 
 <!-- TOOD: show list of all students' appointment requests -->
+
+<h5>All existing appointment requests</h5>
+
+<ul>
+    <% @all_appointment_requests.each do |appt| %>
+        <li>
+            <span><%= appt.city %> @ <%= appt.desired_for %> by <%= appt.user.username %></span>
+            <br>
+            <span><%= appt.notes %></span>
+            <hr>
+        </li>
+    <% end %>
+</ul>
