@@ -22,6 +22,23 @@ class AppointmentsController < ApplicationController
         end
     end
 
+    def destroy
+        appt = Appointment.find(params[:id])
+
+        p appt
+
+        # TODO: abstract this into something less shitty
+        if current_user == appt.user
+            if appt.destroy
+                redirect_to dashboard_path, flash: { global: "Appointment deleted." }
+            else
+                redirect_to dashboard_path, flash: { global: "Error deleting appointment." }
+            end
+        else
+            redirect_to dashboard_path, flash: { global: "Unauthorized!" }
+        end
+    end
+
     private
 
         def appointment_params

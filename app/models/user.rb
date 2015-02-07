@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
     validates :email, length: { maximum: 160 }, uniqueness: { case_sensitive: false }
     validates :username, length: { maximum: 30 }, uniqueness: { case_sensitive: false }
 
-    has_many :appointments
-    has_many :appointment_requests
+    has_many :appointments, :dependent => :destroy
+    has_many :appointment_requests, :dependent => :destroy
 
     # returns the hash digest of the given string
     def User.digest(string)
