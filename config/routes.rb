@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :appointments
 
+  resources :appointment_requests
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
