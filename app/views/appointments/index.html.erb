@@ -1,11 +1,14 @@
+<!-- TODO: show form for creating new appointment request -->
+
 <h5>All available appointments</h5>
 
 <ul>
     <% @all_available_appointments.each do |appt| %>
         <li>
-            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <hr>
         </li>
     <% end %>
 </ul>

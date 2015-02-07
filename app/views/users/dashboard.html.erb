@@ -5,9 +5,11 @@
 <ul>
     <% @my_available_appointments.each do |appt| %>
         <li>
-            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <!-- TODO: don't show username on own dashboard -->
+            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <hr>
         </li>
     <% end %>
 </ul>
@@ -17,9 +19,10 @@
 <ul>
     <% @my_fulfilled_appointments.each do |appt| %>
         <li>
-            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <hr>
         </li>
     <% end %>
 </ul>
@@ -29,9 +32,10 @@
 <ul>
     <% @my_completed_appointments.each do |appt| %>
         <li>
-            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <hr>
         </li>
     <% end %>
 </ul>

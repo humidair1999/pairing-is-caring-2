@@ -66,3 +66,20 @@ user.appointments.create({
     scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
     city: 'New York City',
     notes: 'some weird fake notes about some dumb shit' });
+
+user2 = User.create({ username: 'samantha', email: 'lol2', password: 'lol' });
+
+user2.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user2.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user2.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
