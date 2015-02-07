@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
     before_action :logged_in_user, only: [:index, :new]
 
     def index
-        @all_available_appointments = Appointment.available
+        @all_available_appointments = Appointment.available.where.not(user: current_user)
     end
 
     def new

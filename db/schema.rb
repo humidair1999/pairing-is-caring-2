@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205024308) do
+ActiveRecord::Schema.define(version: 20150207072151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150205024308) do
     t.datetime "updated_at"
   end
 
+  add_index "appointments", ["aasm_state"], name: "index_appointments_on_aasm_state", using: :btree
   add_index "appointments", ["city"], name: "index_appointments_on_city", using: :btree
 
   create_table "users", force: true do |t|
