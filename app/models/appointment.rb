@@ -20,8 +20,8 @@ class Appointment < ActiveRecord::Base
             transitions :from => :available, :to => :fulfilled, :guard => :has_student?
         end
 
-        event :complete do
-            transitions :from => :fulfilled, :to => :completed
+        event :complete, :before => :mark_as_complete, :after => :request_feedback do
+            transitions :from => :fulfilled, :to => :completed, :guard => :has_been_completed?
         end
     end
 
@@ -34,10 +34,24 @@ class Appointment < ActiveRecord::Base
         end
 
         def attach_student(student)
-            p student
+            p 'attach ' + student
         end
 
         def has_student?
-            false
+            p 'check to see if there\'s a student associated with the appointment'
+            true
+        end
+
+        def mark_as_complete
+            p 'require student to mark the session as complete'
+        end
+
+        def has_been_completed?
+            p 'check to see if session was successfully marked as complete'
+            true
+        end
+
+        def request_feedback
+            p 'request feedback on session from student'
         end
 end
