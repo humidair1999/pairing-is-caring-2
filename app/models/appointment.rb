@@ -1,6 +1,7 @@
 # TODO: need to validate/escape "notes" field for security?
 # TODO: abstract core functionality into base model that appointments and requests
 #  can inherit from
+# TODO: add 4th state for "requested" and get rid of appointment requests?
 
 class Appointment < ActiveRecord::Base
     include AASM
