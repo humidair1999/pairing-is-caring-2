@@ -1,5 +1,9 @@
 class AppointmentsController < ApplicationController
-    before_action :logged_in_user, only: [:new]
+    before_action :logged_in_user, only: [:index, :new]
+
+    def index
+        @all_available_appointments = Appointment.available
+    end
 
     def new
         @appointment = current_user.appointments.build

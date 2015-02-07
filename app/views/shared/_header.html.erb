@@ -4,6 +4,8 @@
     <% if logged_in? %>
         <%= link_to "my dashboard", dashboard_path %>
 
+        <%= link_to "find a mentor", appointments_path %>
+
         <%= link_to "offer to mentor", new_appointment_path %>
 
         <%= link_to "edit my info", update_path %>
