@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150205024308) do
     t.string   "city"
     t.text     "notes"
     t.integer  "user_id"
+    t.string   "aasm_state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
