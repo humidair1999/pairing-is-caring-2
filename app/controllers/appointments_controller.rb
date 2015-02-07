@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
     def new
         @appointment = current_user.appointments.build
 
-        @all_appointment_requests = AppointmentRequest.all
+        @all_appointment_requests = AppointmentRequest.where.not(user: current_user)
     end
 
     def create
@@ -24,8 +24,6 @@ class AppointmentsController < ApplicationController
 
     def destroy
         appt = Appointment.find(params[:id])
-
-        p appt
 
         # TODO: abstract this into something less shitty
         if current_user == appt.user
