@@ -1,11 +1,45 @@
 <h2>DASHBOARD</h2>
 
-<h3>Hello, <%= @user.username %>!</h3>
-
-<h5>All my appointments</h5>
+<h5>My available appointments</h5>
 
 <ul>
-    <% @user.appointments.each do |appt| %>
+    <% @my_available_appointments.each do |appt| %>
+        <li>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <br>
+            <span><%= appt.notes %></span>
+        </li>
+    <% end %>
+</ul>
+
+<h5>My fulfilled appointments</h5>
+
+<ul>
+    <% @my_fulfilled_appointments.each do |appt| %>
+        <li>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <br>
+            <span><%= appt.notes %></span>
+        </li>
+    <% end %>
+</ul>
+
+<h5>My completed appointments</h5>
+
+<ul>
+    <% @my_completed_appointments.each do |appt| %>
+        <li>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
+            <br>
+            <span><%= appt.notes %></span>
+        </li>
+    <% end %>
+</ul>
+
+<h5>Available appointments</h5>
+
+<ul>
+    <% @all_available_appointments.each do |appt| %>
         <li>
             <span><%= appt.city %> @ <%= appt.scheduled_for %></span>
             <br>

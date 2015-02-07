@@ -25,7 +25,44 @@ user.appointments.create({
     city: 'San Francisco',
     notes: 'some weird fake notes about some dumb shit' });
 
+appt = user.appointments.build({
+    scheduled_for: DateTime.new(2013, 12, 27, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+appt.fulfill! 'student obj'
+
+appt = user.appointments.build({
+    scheduled_for: DateTime.new(2013, 12, 28, 8, 21, 0),
+    city: 'Chicago',
+    notes: 'some weird fake notes about some dumb shit' });
+
+appt.fulfill! 'student obj2'
+
 user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 24, 8, 21, 0),
+    scheduled_for: DateTime.new(2013, 12, 29, 8, 21, 0),
+    city: 'San Francisco',
+    notes: 'some weird fake notes about some dumb shit' });
+
+appt = user.appointments.build({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+appt.fulfill 'student obj3'
+appt.complete!
+
+user.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
+    city: 'New York City',
+    notes: 'some weird fake notes about some dumb shit' });
+
+user.appointments.create({
+    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
     city: 'New York City',
     notes: 'some weird fake notes about some dumb shit' });
