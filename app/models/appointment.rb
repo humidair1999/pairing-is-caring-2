@@ -18,12 +18,22 @@ class Appointment < ActiveRecord::Base
     belongs_to :student, :class_name => 'User'
 
     aasm :whiny_transitions => false do
-        state :available, :initial => true
+        state :created, :initial => true
+        state :requested
+        state :offered
         state :fulfilled
         state :completed
 
-        event :fulfill, :before => :attach_student do
-            transitions :from => :available, :to => :fulfilled, :guard => :has_student?
+        event :request, :before => :attach_student do
+            transitions :from => :created, :to => :requested, :guard => :has_student?
+        end
+
+        event :offer, :before => :attach_mentor do
+            transitions :from => :created, :to => :offered, :guard => :has_mentor?
+        end
+
+        event :fulfill, :before => :attach_student_or_mentor do
+            transitions :from => [:created, :requested, :offered], :to => :fulfilled, :guard => :has_student_and_mentor?
         end
 
         event :complete, :before => :mark_as_complete, :after => :request_feedback do
@@ -40,11 +50,30 @@ class Appointment < ActiveRecord::Base
         end
 
         def attach_student(student)
-            p 'attach ' + student
+            p 'attach student: ' + student
         end
 
         def has_student?
             p 'check to see if there\'s a student associated with the appointment'
+            true
+        end
+
+        def attach_mentor(mentor)
+            p 'attach mentor: ' + student
+        end
+
+        def has_mentor?
+            p 'check to see if there\'s a mentor associated with the appointment'
+            true
+        end
+
+        def attach_student_or_mentor(opts)
+            # TODO: allow user to pass in hash to pass in one or both users
+            p 'attach student or mentor: ' + opts
+        end
+
+        def has_student_and_mentor?
+            p 'check to see if there are both a student and mentor associated with the appointment'
             true
         end
 
