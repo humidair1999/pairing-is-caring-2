@@ -97,6 +97,38 @@
     You should schedule some shit!
 <% end %>
 
+<h5>Other peoples' appointments that I helped fulfill</h5>
+
+<ul>
+    <% @upcoming_student_appointments.each do |appt| %>
+        <li>
+            <span><%= appt.id %></span>
+            <br>
+            <span>mentor: <%= appt.mentor.username %> & student: <%= appt.student.username %></span>
+            <br>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
+            <br>
+            <span><%= appt.notes %></span>
+            <hr>
+        </li>
+    <% end %>
+</ul>
+
+<ul>
+    <% @upcoming_mentor_appointments.each do |appt| %>
+        <li>
+            <span><%= appt.id %></span>
+            <br>
+            <span>mentor: <%= appt.mentor.username %> & student: <%= appt.student.username %></span>
+            <br>
+            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
+            <br>
+            <span><%= appt.notes %></span>
+            <hr>
+        </li>
+    <% end %>
+</ul>
+
 <!-- TODO: MY APPOINTMENTS -->
 <!-- TODO: list of available appointments that students have accepted -->
 <!-- TODO: list of available appointments that students have NOT accepted -->
