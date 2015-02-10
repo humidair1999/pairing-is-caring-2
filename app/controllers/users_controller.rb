@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
     def dashboard
         # TODO: what's going on the fuckin' dashboard?!
+        @my_created_appointments = current_user.appointments.created
         @my_requested_appointments = current_user.appointments.requested
         @my_offered_appointments = current_user.appointments.offered
         @my_fulfilled_appointments = current_user.appointments.fulfilled

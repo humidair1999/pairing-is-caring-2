@@ -15,6 +15,12 @@ class AppointmentsController < ApplicationController
         # TODO: associate new appointment with mentor entity
         @appointment = current_user.appointments.build(appointment_params)
 
+        if user_type_is? 'mentor'
+            @appointment.offer current_user
+        elsif user_type_is? 'student'
+            @appointment.request current_user
+        end
+
         if @appointment.save
             redirect_to dashboard_path, flash: { global: "New available appointment created!" }
         else
@@ -42,5 +48,15 @@ class AppointmentsController < ApplicationController
 
         def appointment_params
             params.require(:appointment).permit(:city, :scheduled_for, :notes)
+        end
+
+        def appointment_user_type_param
+            permitted_params = params.require(:appointment).permit(:user_type)
+
+            permitted_params[:user_type]
+        end
+
+        def user_type_is?(user_type)
+            appointment_user_type_param && appointment_user_type_param == user_type
         end
 end

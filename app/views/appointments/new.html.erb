@@ -8,14 +8,15 @@
     <h1>Offer to Mentor</h1>
 
     <%= form_for @appointment do |f| %>
+        <%= f.hidden_field :user_type, value: 'mentor' %>
         <%= f.select(:city, options_for_select(
             [
                 ['San Francisco', 'San Francisco'],
                 ['Chicago', 'Chicago'],
                 ['New York City', 'New York City']
             ], 1)) %>
-        <p> Date and time:</br> <%= f.text_field :scheduled_for %> </p>
-        <p> Notes:</br> <%= f.text_field :notes %></p>
+        <p> Date and time:</br> <%= f.text_field :scheduled_for, value: '2015-02-14T02:45:32' %> </p>
+        <p> Notes:</br> <%= f.text_field :notes, value: 'HERE IS A FUCKIN FAKE NOTE' %></p>
         <%= f.submit %>
     <% end %>
 </div>
