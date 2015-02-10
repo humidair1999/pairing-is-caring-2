@@ -9,14 +9,19 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   get 'register' => 'users#new'
-  get 'deactivate' => 'users#destroy'
+  get 'deactivate' => 'users#deactivate'
 
   get 'settings' => 'users#edit'
   get 'dashboard' => 'users#dashboard'
 
-  resources :users, except: [:index, :new, :destroy, :edit]
+  resources :users, except: [:index, :new, :edit]
 
-  resources :appointments
+  resources :appointments do
+    member do
+      patch 'add_mentor'
+      patch 'add_student'
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

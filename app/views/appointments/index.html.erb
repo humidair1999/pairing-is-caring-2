@@ -12,9 +12,9 @@
         <%= f.hidden_field :user_type, value: 'student' %>
         <%= f.select(:city, options_for_select(
             [
-                ['San Francisco', 'San Francisco'],
-                ['Chicago', 'Chicago'],
-                ['New York City', 'New York City']
+                ['San Francisco', 'san francisco'],
+                ['Chicago', 'chicago'],
+                ['New York City', 'new york city']
             ], 1)) %>
         <p> Date and time:</br> <%= f.text_field :scheduled_for, value: '2015-02-14T02:45:32' %> </p>
         <p> Notes:</br> <%= f.text_field :notes, value: 'HERE IS A FUCKIN FAKE NOTE' %></p>
@@ -30,6 +30,7 @@
             <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <%= link_to("Accept mentoring offer", add_student_appointment_path(appt), method: :patch) %>
             <hr>
         </li>
     <% end %>

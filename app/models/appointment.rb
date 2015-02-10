@@ -6,9 +6,10 @@
 class Appointment < ActiveRecord::Base
     include AASM
 
-    before_save { self.city = city.downcase }
+    # TODO: necessary to downcase cities if all options are preset?
+    # TODO: should probably be using enum/hash for city options
 
-    validates :city, inclusion: { in: ["San Francisco", "Chicago", "New York City"] }
+    validates :city, inclusion: { in: ["san francisco", "chicago", "new york city"] }
     validate :scheduled_for_is_datetime?
 
     belongs_to :user
@@ -66,13 +67,17 @@ class Appointment < ActiveRecord::Base
         end
 
         def attach_student_or_mentor(opts)
-            # TODO: allow user to pass in hash to pass in one or both users
-            p 'attach student or mentor: ' + opts.to_s
+            if opts.key?(:student) && self.student.nil?
+                self.student = opts[:student]
+            end
+
+            if opts.key?(:mentor) && self.mentor.nil?
+                self.mentor = opts[:mentor]
+            end
         end
 
         def has_student_and_mentor?
-            p 'check to see if there are both a student and mentor associated with the appointment'
-            true
+            !self.student.nil? && !self.mentor.nil?
         end
 
         def mark_as_complete
