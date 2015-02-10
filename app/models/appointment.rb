@@ -59,7 +59,7 @@ class Appointment < ActiveRecord::Base
         end
 
         def attach_mentor(mentor)
-            p 'attach mentor: ' + student
+            p 'attach mentor: ' + mentor
         end
 
         def has_mentor?
@@ -69,7 +69,7 @@ class Appointment < ActiveRecord::Base
 
         def attach_student_or_mentor(opts)
             # TODO: allow user to pass in hash to pass in one or both users
-            p 'attach student or mentor: ' + opts
+            p 'attach student or mentor: ' + opts.to_s
         end
 
         def has_student_and_mentor?

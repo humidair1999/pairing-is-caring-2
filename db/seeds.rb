@@ -6,107 +6,96 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user = User.create({ username: 'josh', email: 'lol', password: 'lol' });
-
 # TODO: how to handle timezone situation?
 # https://www.reinteractive.net/posts/168-dealing-with-timezones-effectively-in-rails
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 24, 8, 21, 0),
-    city: 'San Francisco',
-    notes: 'some weird fake notes about some dumb shit' });
 
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 25, 8, 21, 0),
-    city: 'Chicago',
-    notes: 'some weird fake notes about some dumb shit' });
+possible_cities = ['San Francisco', 'Chicago', 'New York City'];
 
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 26, 8, 21, 0),
-    city: 'San Francisco',
-    notes: 'some weird fake notes about some dumb shit' });
+user = User.create({ username: 'josh', email: 'lol', password: 'lol' });
 
-appt = user.appointments.build({
-    scheduled_for: DateTime.new(2013, 12, 27, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+3.times do
+    # create appointments in 'created' state
+    user.appointments.create({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-appt.fulfill! 'student obj'
+    # create appointments in 'requested' state
+    appt = user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-appt = user.appointments.build({
-    scheduled_for: DateTime.new(2013, 12, 28, 8, 21, 0),
-    city: 'Chicago',
-    notes: 'some weird fake notes about some dumb shit' });
+    appt.request! 'some student'
 
-appt.fulfill! 'student obj2'
+    # create appointments in 'offered' state
+    appt = user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 29, 8, 21, 0),
-    city: 'San Francisco',
-    notes: 'some weird fake notes about some dumb shit' });
+    appt.offer! 'some mentor'
 
-appt = user.appointments.build({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    # create appointments in 'fulfilled' state
+    appt = user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-appt.fulfill 'student obj3'
-appt.complete!
+    appt.fulfill!({ student: 'some student', mentor: 'some mentor' });
 
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    # create appointments in 'completed' state
+    appt = user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    appt.fulfill({ student: 'some student', mentor: 'some mentor' });
+    appt.complete!
+end
 
-user.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+3.times do
+    fake_user = User.create({
+        username: Faker::Internet.user_name,
+        email: Faker::Internet.email,
+        password: Faker::Internet.password });
 
-user2 = User.create({ username: 'samantha', email: 'lol2', password: 'lol' });
+    # create appointments in 'created' state
+    fake_user.appointments.create({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user2.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    # create appointments in 'requested' state
+    appt = fake_user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user2.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    appt.request! 'some student'
 
-user2.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    # create appointments in 'offered' state
+    appt = fake_user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user3 = User.create({ username: 'derek', email: 'lol3', password: 'lol' });
+    appt.offer! 'some mentor'
 
-user3.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    # create appointments in 'fulfilled' state
+    appt = fake_user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user3.appointments.create({
-    scheduled_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    appt.fulfill!({ student: 'some student', mentor: 'some mentor' });
 
-user.appointment_requests.create({
-    desired_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    # create appointments in 'completed' state
+    appt = fake_user.appointments.build({
+        scheduled_for: Faker::Time.forward(12, :evening),
+        city: possible_cities.sample,
+        notes: Faker::Hacker.say_something_smart });
 
-user2.appointment_requests.create({
-    desired_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
-
-user3.appointment_requests.create({
-    desired_for: DateTime.new(2013, 12, 30, 8, 21, 0),
-    city: 'New York City',
-    notes: 'some weird fake notes about some dumb shit' });
+    appt.fulfill({ student: 'some student', mentor: 'some mentor' });
+    appt.complete!
+end

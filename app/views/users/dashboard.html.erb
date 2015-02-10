@@ -10,10 +10,10 @@
         <% @my_requested_appointments.each do |appt| %>
             <li>
                 <!-- TODO: don't show username on own dashboard -->
-                <span><%= appt.city %> @ <%= appt.desired_for %> by <%= appt.user.username %></span>
+                <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                 <br>
                 <span><%= appt.notes %></span>
-                <%= link_to("Destroy", appointment_request_path(appt), method: :delete) %>
+                <%= link_to("Destroy", appointment_path(appt), method: :delete) %>
                 <hr>
             </li>
         <% end %>
