@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20150207080411) do
     t.string   "city"
     t.text     "notes"
     t.integer  "user_id"
+    t.integer  "mentor_id"
+    t.integer  "student_id"
     t.string   "aasm_state"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -14,6 +14,9 @@ class Appointment < ActiveRecord::Base
     belongs_to :user
     validates :user, presence: true
 
+    belongs_to :mentor, :class_name => 'User'
+    belongs_to :student, :class_name => 'User'
+
     aasm :whiny_transitions => false do
         state :available, :initial => true
         state :fulfilled

@@ -7,6 +7,9 @@ class CreateAppointments < ActiveRecord::Migration
 
       t.belongs_to :user
 
+      t.integer :mentor_id
+      t.integer :student_id
+
       t.string :aasm_state
 
       t.timestamps

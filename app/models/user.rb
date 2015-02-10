@@ -1,5 +1,7 @@
 # TODO: add twitter handle (remove @ symbol if it exists)
 # TODO: add short bio text area (remember to escape shit)
+# TODO: add class/instance method to retrieve all appointments that user is
+#  a student/mentor of
 
 class User < ActiveRecord::Base
     attr_accessor :remember_token
