@@ -11,14 +11,12 @@ Rails.application.routes.draw do
   get 'register' => 'users#new'
   get 'deactivate' => 'users#destroy'
 
-  get 'update' => 'users#edit'
+  get 'settings' => 'users#edit'
   get 'dashboard' => 'users#dashboard'
 
   resources :users, except: [:index, :new, :destroy, :edit]
 
   resources :appointments
-
-  resources :appointment_requests
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

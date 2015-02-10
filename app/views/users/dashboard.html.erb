@@ -13,7 +13,7 @@
                 <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                 <br>
                 <span><%= appt.notes %></span>
-                <%= link_to("Destroy", appointment_path(appt), method: :delete) %>
+                <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
                 <hr>
             </li>
         <% end %>
@@ -35,7 +35,7 @@
                     <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                     <br>
                     <span><%= appt.notes %></span>
-                    <%= link_to("Destroy", appointment_path(appt), method: :delete) %>
+                    <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
                     <hr>
                 </li>
             <% end %>
@@ -51,7 +51,7 @@
                     <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                     <br>
                     <span><%= appt.notes %></span>
-                    <%= link_to("Destroy", appointment_path(appt), method: :delete) %>
+                    <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
                     <hr>
                 </li>
             <% end %>
@@ -67,7 +67,7 @@
                     <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                     <br>
                     <span><%= appt.notes %></span>
-                    <%= link_to("Destroy", appointment_path(appt), method: :delete) %>
+                    <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
                     <hr>
                 </li>
             <% end %>

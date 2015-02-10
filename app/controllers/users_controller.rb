@@ -34,7 +34,7 @@ class UsersController < ApplicationController
             redirect_to dashboard_path, flash: { global: "Your information has been updated!" }
         else
             # TODO: store values in inputs so redirect doesn't wipe out user input
-            redirect_to update_path, flash: { validation: @user.errors.full_messages.first }
+            redirect_to settings_path, flash: { validation: @user.errors.full_messages.first }
         end
     end
 
