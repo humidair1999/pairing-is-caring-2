@@ -2,16 +2,17 @@ class AppointmentsController < ApplicationController
     before_action :logged_in_user, only: [:index, :new]
 
     def index
-        @all_available_appointments = Appointment.available.where.not(user: current_user)
+        @all_available_appointments = Appointment.offered.where.not(user: current_user)
     end
 
     def new
         @appointment = current_user.appointments.build
 
-        @all_appointment_requests = AppointmentRequest.where.not(user: current_user)
+        @all_appointment_requests = Appointment.requested.where.not(user: current_user)
     end
 
     def create
+        # TODO: associate new appointment with mentor entity
         @appointment = current_user.appointments.build(appointment_params)
 
         if @appointment.save
