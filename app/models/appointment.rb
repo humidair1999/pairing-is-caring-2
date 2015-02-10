@@ -50,12 +50,11 @@ class Appointment < ActiveRecord::Base
         end
 
         def attach_student(student)
-            p 'attach student: ' + student.to_s
+            self.student = student
         end
 
         def has_student?
-            p 'check to see if there\'s a student associated with the appointment'
-            true
+            !self.student.nil?
         end
 
         def attach_mentor(mentor)

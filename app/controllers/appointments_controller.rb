@@ -2,6 +2,8 @@ class AppointmentsController < ApplicationController
     before_action :logged_in_user, only: [:index, :new]
 
     def index
+        @appointment = current_user.appointments.build
+        
         @all_available_appointments = Appointment.offered.where.not(user: current_user)
     end
 
