@@ -6,6 +6,10 @@
 class Appointment < ActiveRecord::Base
     include AASM
 
+    scope :fulfilled_and_owned_by, ->(user) { fulfilled.where(user: user) }
+    scope :fulfilled_as_student_and_not_owned_by, ->(user) { fulfilled.where.not(user: user).where(student: user) }
+    scope :fulfilled_as_mentor_and_not_owned_by, ->(user) { fulfilled.where.not(user: user).where(mentor: user) }
+
     # TODO: necessary to downcase cities if all options are preset?
     # TODO: should probably be using enum/hash for city options
 

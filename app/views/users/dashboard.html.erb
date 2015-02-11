@@ -121,40 +121,6 @@ LIST 'EM HERE
     You should schedule some shit!
 <% end %>
 
-<h5>Other peoples' appointments that I helped fulfill</h5>
-
-<ul>
-    <% @others_fulfilled_student_appointments.each do |appt| %>
-        <li>
-            <span><%= appt.id %></span>
-            <br>
-            <span>mentor: <%= appt.mentor.username %> & student: <%= appt.student.username %></span>
-            <br>
-            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
-            <br>
-            <span><%= appt.notes %></span>
-            <%= link_to("Cancel mentoring request", cancel_request_appointment_path(appt), method: :patch) %>
-            <hr>
-        </li>
-    <% end %>
-</ul>
-
-<ul>
-    <% @others_fulfilled_mentor_appointments.each do |appt| %>
-        <li>
-            <span><%= appt.id %></span>
-            <br>
-            <span>mentor: <%= appt.mentor.username %> & student: <%= appt.student.username %></span>
-            <br>
-            <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
-            <br>
-            <span><%= appt.notes %></span>
-            <%= link_to("Cancel mentoring offer", cancel_offer_appointment_path(appt), method: :patch) %>
-            <hr>
-        </li>
-    <% end %>
-</ul>
-
 <!-- TODO: MY APPOINTMENTS -->
 <!-- TODO: list of available appointments that students have accepted -->
 <!-- TODO: list of available appointments that students have NOT accepted -->

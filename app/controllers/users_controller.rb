@@ -41,16 +41,12 @@ class UsersController < ApplicationController
     def dashboard
         # my fulfilled appointments show up on my dashboard; others' show up on my dashboard only if
         #  I'm on the appointment; otherwise, they don't show up anywhere
-        my_fulfilled_appointments = current_user.appointments.fulfilled
+        @all_my_fulfilled_appointments = Appointment.fulfilled_and_owned_by(current_user) +
+                                            Appointment.fulfilled_as_student_and_not_owned_by(current_user) +
+                                            Appointment.fulfilled_as_mentor_and_not_owned_by(current_user)
 
-        # TODO: turn these shitty queries into class methods
-        @others_fulfilled_student_appointments = Appointment.fulfilled.where.not(user: current_user).where(student: current_user)
-
-        @others_fulfilled_mentor_appointments = Appointment.fulfilled.where.not(user: current_user).where(mentor: current_user)
-
-        @all_my_fulfilled_appointments = my_fulfilled_appointments +
-                                            @others_fulfilled_student_appointments +
-                                            @others_fulfilled_mentor_appointments
+        # TODO: should really be done as part of db query, but our scope methods are making this hard
+        @all_my_fulfilled_appointments.sort_by! { |appt| appt.scheduled_for }
 
         # created appointments should only be createable by admin
         @my_created_appointments = current_user.appointments.created
@@ -60,8 +56,6 @@ class UsersController < ApplicationController
 
         # my offered appointments show up on my dashboard; others' show up on "offer to mentor" page
         @my_offered_appointments = current_user.appointments.offered
-
-
 
         # my completed appointments show up on my dashboard; others' show up on my dashboard only if
         #  I was on the appointment; otherwise, they don't show up anywhere
