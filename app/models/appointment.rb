@@ -25,20 +25,26 @@ class Appointment < ActiveRecord::Base
         state :fulfilled
         state :completed
 
+        # events for managing appointment requests
         event :request, :before => :attach_student do
             transitions :from => :created, :to => :requested, :guard => :only_has_student?
         end
 
-        event :offer, :before => :attach_mentor do
-            transitions :from => :created, :to => :offered, :guard => :only_has_mentor?
-        end
-
-        event :fulfill, :before => :attach_student_or_mentor do
-            transitions :from => [:created, :requested, :offered], :to => :fulfilled, :guard => :has_student_and_mentor?
+        event :fulfill_request, :before => :attach_mentor do
+            transitions :from => :requested, :to => :fulfilled, :guard => :has_student_and_mentor?
         end
 
         event :cancel_request, :before => :remove_student do
             transitions :from => :fulfilled, :to => :offered, :guard => :only_has_mentor?
+        end
+
+        # events for managing appointment offers
+        event :offer, :before => :attach_mentor do
+            transitions :from => :created, :to => :offered, :guard => :only_has_mentor?
+        end
+
+        event :fulfill_offer, :before => :attach_student do
+            transitions :from => :offered, :to => :fulfilled, :guard => :has_student_and_mentor?
         end
 
         event :cancel_offer, :before => :remove_mentor do
@@ -82,16 +88,6 @@ class Appointment < ActiveRecord::Base
 
         def only_has_mentor?
             !self.mentor.nil? && self.student.nil?
-        end
-
-        def attach_student_or_mentor(opts)
-            if opts.key?(:student) && self.student.nil?
-                self.student = opts[:student]
-            end
-
-            if opts.key?(:mentor) && self.mentor.nil?
-                self.mentor = opts[:mentor]
-            end
         end
 
         def has_student_and_mentor?

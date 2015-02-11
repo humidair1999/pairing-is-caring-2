@@ -14,94 +14,61 @@ possible_cities = ['san francisco', 'chicago', 'new york city'];
 user = User.create({ username: 'josh', email: 'lol', password: 'lol' });
 user2 = User.create({ username: 'josh2', email: 'lol2', password: 'lol' });
 
-3.times do
-    # create appointments in 'created' state
-    user.appointments.create({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
+# create appointments in 'created' state
+user.appointments.create({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    # create appointments in 'requested' state
-    appt = user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
+# create appointments in 'requested' state
+appt = user.appointments.build({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    appt.request! user
+appt.request! user
 
-    # create appointments in 'offered' state
-    appt = user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
+# create appointments in 'offered' state
+appt = user.appointments.build({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    appt.offer! user
+appt.offer! user
 
-    # create appointments in 'fulfilled' state
-    appt = user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
+# create appointments in 'fulfilled' state
+appt = user.appointments.build({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    appt.fulfill!({ student: user, mentor: user2 });
+appt.request user2
+appt.fulfill_request! user
 
-    # create appointments in 'completed' state
-    appt = user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
+# create appointments in 'completed' state
+appt = user.appointments.build({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    appt.fulfill({ student: user, mentor: user2 });
-    appt.complete!
-end
+appt.request user2
+appt.fulfill_request user
+appt.complete!
 
-3.times do
-    fake_user = User.create({
-        username: Faker::Internet.user_name,
-        email: Faker::Internet.email,
-        password: Faker::Internet.password });
+# create appointments in 'fulfilled' state
+appt = user2.appointments.build({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    fake_user2 = User.create({
-        username: Faker::Internet.user_name,
-        email: Faker::Internet.email,
-        password: Faker::Internet.password });
+appt.request user2
+appt.fulfill_request! user
 
-    # create appointments in 'created' state
-    fake_user.appointments.create({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
+# create appointments in 'fulfilled' state
+appt = user2.appointments.build({
+    scheduled_for: Faker::Time.forward(12, :evening),
+    city: possible_cities.sample,
+    notes: Faker::Hacker.say_something_smart });
 
-    # create appointments in 'requested' state
-    appt = fake_user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
-
-    appt.request! fake_user
-
-    # create appointments in 'offered' state
-    appt = fake_user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
-
-    appt.offer! fake_user
-
-    # create appointments in 'fulfilled' state
-    appt = fake_user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
-
-    appt.fulfill!({ student: fake_user, mentor: fake_user2 });
-
-    # create appointments in 'completed' state
-    appt = fake_user.appointments.build({
-        scheduled_for: Faker::Time.forward(12, :evening),
-        city: possible_cities.sample,
-        notes: Faker::Hacker.say_something_smart });
-
-    appt.fulfill({ student: fake_user, mentor: fake_user2 });
-    appt.complete!
-end
+appt.offer user2
+appt.fulfill_offer! user

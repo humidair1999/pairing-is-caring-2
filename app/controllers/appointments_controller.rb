@@ -34,7 +34,7 @@ class AppointmentsController < ApplicationController
     def fulfill_offer
         @appointment = Appointment.find(params[:id])
 
-        @appointment.fulfill({ student: current_user });
+        @appointment.fulfill_offer current_user
 
         if @appointment.save
             redirect_to dashboard_path, flash: { global: "Appointment scheduled!" }
@@ -60,7 +60,7 @@ class AppointmentsController < ApplicationController
     def fulfill_request
         @appointment = Appointment.find(params[:id])
 
-        @appointment.fulfill({ mentor: current_user });
+        @appointment.fulfill_request current_user
 
         if @appointment.save
             redirect_to dashboard_path, flash: { global: "Appointment scheduled!" }
