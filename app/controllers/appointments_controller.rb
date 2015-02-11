@@ -44,6 +44,19 @@ class AppointmentsController < ApplicationController
         end
     end
 
+    def add_mentor
+        @appointment = Appointment.find(params[:id])
+
+        @appointment.fulfill({ mentor: current_user });
+
+        if @appointment.save
+            redirect_to dashboard_path, flash: { global: "Appointment scheduled!" }
+        else
+            # TODO: store values in inputs so redirect doesn't wipe out user input
+            redirect_to new_appointment_path, flash: { global: "Appointment no longer available!" }
+        end
+    end
+
     # TODO: user should NOT be able to update user/student/mentor IDs
     def update
 
