@@ -18,8 +18,10 @@ Rails.application.routes.draw do
 
   resources :appointments do
     member do
-      patch 'add_mentor'
-      patch 'add_student'
+      patch 'fulfill_request'
+      patch 'fulfill_offer'
+      patch 'cancel_request'
+      patch 'cancel_offer'
     end
   end
 

@@ -26,15 +26,23 @@ class Appointment < ActiveRecord::Base
         state :completed
 
         event :request, :before => :attach_student do
-            transitions :from => :created, :to => :requested, :guard => :has_student?
+            transitions :from => :created, :to => :requested, :guard => :only_has_student?
         end
 
         event :offer, :before => :attach_mentor do
-            transitions :from => :created, :to => :offered, :guard => :has_mentor?
+            transitions :from => :created, :to => :offered, :guard => :only_has_mentor?
         end
 
         event :fulfill, :before => :attach_student_or_mentor do
             transitions :from => [:created, :requested, :offered], :to => :fulfilled, :guard => :has_student_and_mentor?
+        end
+
+        event :cancel_request, :before => :remove_student do
+            transitions :from => :fulfilled, :to => :offered, :guard => :only_has_mentor?
+        end
+
+        event :cancel_offer, :before => :remove_mentor do
+            transitions :from => :fulfilled, :to => :requested, :guard => :only_has_student?
         end
 
         event :complete, :before => :mark_as_complete, :after => :request_feedback do
@@ -50,20 +58,30 @@ class Appointment < ActiveRecord::Base
             end
         end
 
+        # methods for managing student
         def attach_student(student)
-            self.student = student
+            self.student = student if self.student.nil?
         end
 
-        def has_student?
-            !self.student.nil?
+        def remove_student(student)
+            self.student = nil if self.student == student
         end
 
+        def only_has_student?
+            !self.student.nil? && self.mentor.nil?
+        end
+
+        # methods for managing mentor
         def attach_mentor(mentor)
-            self.mentor = mentor
+            self.mentor = mentor if self.mentor.nil?
         end
 
-        def has_mentor?
-            !self.mentor.nil?
+        def remove_mentor(mentor)
+            self.mentor = nil if self.mentor == mentor
+        end
+
+        def only_has_mentor?
+            !self.mentor.nil? && self.student.nil?
         end
 
         def attach_student_or_mentor(opts)

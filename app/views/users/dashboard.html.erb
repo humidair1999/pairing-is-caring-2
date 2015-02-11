@@ -109,6 +109,7 @@
             <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <%= link_to("Cancel mentoring request", cancel_request_appointment_path(appt), method: :patch) %>
             <hr>
         </li>
     <% end %>
@@ -124,6 +125,7 @@
             <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
+            <%= link_to("Cancel mentoring offer", cancel_offer_appointment_path(appt), method: :patch) %>
             <hr>
         </li>
     <% end %>

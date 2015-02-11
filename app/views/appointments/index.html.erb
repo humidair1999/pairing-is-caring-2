@@ -30,7 +30,7 @@
             <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
             <br>
             <span><%= appt.notes %></span>
-            <%= link_to("Accept mentoring offer", add_student_appointment_path(appt), method: :patch) %>
+            <%= link_to("Accept mentoring offer", fulfill_offer_appointment_path(appt), method: :patch) %>
             <hr>
         </li>
     <% end %>
