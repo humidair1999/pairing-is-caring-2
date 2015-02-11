@@ -1,6 +1,15 @@
 <!-- TODO: list and/or calendar view options? -->
 <!-- TODO: export to google calendar -->
 
+<h2>MY UPCOMING APPOINTMENTS</h2>
+
+LIST 'EM HERE
+
+<!-- TODO: list all fulfilled appointments; mine should have 'delete' links,
+        other users' should have 'cancel' links -->
+
+<hr>
+
 <!-- TODO: show this??? -->
 <% if @my_created_appointments.any? %>
     <h2>WTF</h2>
@@ -70,6 +79,8 @@
                 <li>
                     <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                     <br>
+                    <span>student: <%= appt.student.username %>, mentor: <%= appt.mentor.username %></span>
+                    <br>
                     <span><%= appt.notes %></span>
                     <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
                     <hr>
@@ -85,6 +96,8 @@
             <% @my_completed_appointments.each do |appt| %>
                 <li>
                     <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
+                    <br>
+                    <span>student: <%= appt.student.username %>, mentor: <%= appt.mentor.username %></span>
                     <br>
                     <span><%= appt.notes %></span>
                     <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
