@@ -34,12 +34,9 @@ class AppointmentsController < ApplicationController
     def fulfill_offer
         @appointment = Appointment.find(params[:id])
 
-        @appointment.fulfill_offer current_user
-
-        if @appointment.save
+        if @appointment.fulfill_offer! current_user
             redirect_to dashboard_path, flash: { global: "Appointment scheduled!" }
         else
-            # TODO: store values in inputs so redirect doesn't wipe out user input
             redirect_to new_appointment_path, flash: { global: "Appointment no longer available!" }
         end
     end
@@ -47,25 +44,19 @@ class AppointmentsController < ApplicationController
     def cancel_offer
         @appointment = Appointment.find(params[:id])
 
-        @appointment.cancel_offer current_user
-
-        if @appointment.save
+        if @appointment.cancel_offer! current_user
             redirect_to dashboard_path, flash: { global: "Appointment cancelled!" }
         else
-            # TODO: store values in inputs so redirect doesn't wipe out user input
-            redirect_to new_appointment_path, flash: { global: "Appointment no longer available!" }
+            redirect_to dashboard_path, flash: { global: "Can't cancel: you're not the mentor!" }
         end
     end
 
     def fulfill_request
         @appointment = Appointment.find(params[:id])
 
-        @appointment.fulfill_request current_user
-
-        if @appointment.save
+        if @appointment.fulfill_request! current_user
             redirect_to dashboard_path, flash: { global: "Appointment scheduled!" }
         else
-            # TODO: store values in inputs so redirect doesn't wipe out user input
             redirect_to new_appointment_path, flash: { global: "Appointment no longer available!" }
         end
     end
@@ -73,13 +64,10 @@ class AppointmentsController < ApplicationController
     def cancel_request
         @appointment = Appointment.find(params[:id])
 
-        @appointment.cancel_request current_user
-
-        if @appointment.save
+        if @appointment.cancel_request! current_user
             redirect_to dashboard_path, flash: { global: "Appointment cancelled!" }
         else
-            # TODO: store values in inputs so redirect doesn't wipe out user input
-            redirect_to new_appointment_path, flash: { global: "Appointment no longer available!" }
+            redirect_to dashboard_path, flash: { global: "Can't cancel: you're not the student!" }
         end
     end
 
@@ -99,7 +87,7 @@ class AppointmentsController < ApplicationController
                 redirect_to dashboard_path, flash: { global: "Error deleting appointment." }
             end
         else
-            redirect_to dashboard_path, flash: { global: "Unauthorized!" }
+            redirect_to dashboard_path, flash: { global: "You're not the owner of this appointment!" }
         end
     end
 

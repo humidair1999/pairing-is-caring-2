@@ -50,7 +50,7 @@ LIST 'EM HERE
 <% end %>
 
 <% if @my_offered_appointments.any? ||
-    @my_fulfilled_appointments.any? ||
+    @all_my_fulfilled_appointments.any? ||
     @my_completed_appointments.any? %>
     <h2>MENTOR</h2>
 
@@ -71,18 +71,29 @@ LIST 'EM HERE
         </ul>
     <% end %>
 
-    <% if @my_fulfilled_appointments.any? %>
+    <% if @all_my_fulfilled_appointments.any? %>
         <h5>My fulfilled appointments</h5>
 
         <ul>
-            <% @my_fulfilled_appointments.each do |appt| %>
+            <% @all_my_fulfilled_appointments.each do |appt| %>
                 <li>
+                    <span><%= appt.id %></span>
+                    <br>
                     <span><%= appt.city %> @ <%= appt.scheduled_for %> by <%= appt.user.username %></span>
                     <br>
                     <span>student: <%= appt.student.username %>, mentor: <%= appt.mentor.username %></span>
                     <br>
                     <span><%= appt.notes %></span>
-                    <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
+                    <% if appt.user == current_user %>
+                        <%= link_to("Destroy", appointment_path(appt), method: :delete, data: { confirm: "Are you sure?" }) %>
+                    <% end %>
+
+                    <!-- TODO: allow the owner of an appt to also abandon it? -->
+                    <% if appt.student == current_user %>
+                        <%= link_to("Cancel mentoring request", cancel_request_appointment_path(appt), method: :patch) %>
+                    <% elsif appt.mentor == current_user %>
+                        <%= link_to("Cancel mentoring offer", cancel_offer_appointment_path(appt), method: :patch) %>
+                    <% end %>
                     <hr>
                 </li>
             <% end %>
@@ -113,7 +124,7 @@ LIST 'EM HERE
 <h5>Other peoples' appointments that I helped fulfill</h5>
 
 <ul>
-    <% @upcoming_student_appointments.each do |appt| %>
+    <% @others_fulfilled_student_appointments.each do |appt| %>
         <li>
             <span><%= appt.id %></span>
             <br>
@@ -129,7 +140,7 @@ LIST 'EM HERE
 </ul>
 
 <ul>
-    <% @upcoming_mentor_appointments.each do |appt| %>
+    <% @others_fulfilled_mentor_appointments.each do |appt| %>
         <li>
             <span><%= appt.id %></span>
             <br>
