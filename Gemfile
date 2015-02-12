@@ -29,9 +29,13 @@ gem 'spring',        group: :development
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'aasm'
+gem 'aasm', '~> 4.0.8'
 
-gem 'faker'
+gem 'faker', '~> 1.4.2'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
 
 # Use unicorn as the app server
 # gem 'unicorn'
