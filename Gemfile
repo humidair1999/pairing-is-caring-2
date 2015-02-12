@@ -36,7 +36,6 @@ gem 'faker', '~> 1.4.2'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 2.6.1'
-  gem 'shoulda-callback-matchers', '~> 1.1.2'
   gem 'factory_girl_rails', '~> 4.5.0'
 end
 
