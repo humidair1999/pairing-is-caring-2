@@ -14,6 +14,10 @@ RSpec.describe User, :type => :model do
 
     it { should have_many(:appointments) }
 
+    it "has a valid factory" do
+        expect(FactoryGirl.create(:user)).to be_valid
+    end
+
     # it "orders by last name" do
     #     lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
     #     chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
