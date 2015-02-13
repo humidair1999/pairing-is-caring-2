@@ -74,6 +74,41 @@ RSpec.describe Appointment, :type => :model do
                     expect(appointment.requested?).to be_truthy
                 end
             end
+
+            describe "offer" do
+                it "attaches valid mentor to appointment and changes state if it doesn't currently have one" do
+                    mentor = FactoryGirl.create(:user)
+
+                    appointment.offer mentor
+
+                    expect(appointment.mentor_id).to eq mentor.id
+                    expect(appointment.mentor).to eq mentor
+                    expect(appointment.offered?).to be_truthy
+                end
+
+                it "doesn't attach invalid student to appointment or change state if it doesn't currently have one" do
+                    mentor = User.create
+
+                    appointment.offer mentor
+
+                    expect(appointment.mentor_id).to eq nil
+                    expect(appointment.mentor).to eq nil
+                    expect(appointment.offered?).to be_falsy
+                end
+
+                it "doesn't attach valid student to appointment or change state if it does currently have one" do
+                    mentor = FactoryGirl.create(:user)
+                    mentor2 = FactoryGirl.create(:user)
+
+                    appointment.offer mentor
+
+                    appointment.offer mentor2
+
+                    expect(appointment.mentor_id).to eq mentor.id
+                    expect(appointment.mentor).to eq mentor
+                    expect(appointment.offered?).to be_truthy
+                end
+            end
         end
     end
 end
