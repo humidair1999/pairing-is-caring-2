@@ -54,6 +54,8 @@ module SessionsHelper
         @current_user = nil
     end
 
+    # TODO: probably shouldn't have controller-specific methods in helper
+
     # redirects to stored location (or to the default)
     def redirect_back_or(default)
         redirect_to(session[:forwarding_url] || default)

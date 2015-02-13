@@ -47,13 +47,13 @@ RSpec.describe User, :type => :model do
             it "assigns remember_token attribute to user" do
                 user.remember
 
-                expect(user.remember_token).not_to be nil
+                expect(user.remember_token).not_to eq nil
             end
 
             it "updates remember_digest attribute on user" do
                 user.remember
 
-                expect(user.remember_digest).not_to be nil
+                expect(user.remember_digest).not_to eq nil
             end
         end
 
@@ -83,7 +83,7 @@ RSpec.describe User, :type => :model do
             it "clears remember_digest attribute on user" do
                 user.forget
 
-                expect(user.remember_digest).to be nil
+                expect(user.remember_digest).to eq nil
             end
         end
     end

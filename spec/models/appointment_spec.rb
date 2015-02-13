@@ -265,6 +265,8 @@ RSpec.describe Appointment, :type => :model do
                     expect(appointment.requested?).to be_falsy
                 end
             end
+
+            # TODO: tests for "complete" functionality
         end
     end
 end
