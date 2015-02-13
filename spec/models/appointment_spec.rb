@@ -13,6 +13,8 @@ RSpec.describe Appointment, :type => :model do
             it { should belong_to(:mentor) }
             it { should belong_to(:student) }
 
+            # TODO: more thorough validation checking on datetime
+
             it 'fails validation when scheduled_for is invalid datetime' do
                 fake_user = User.new
                 appt = Appointment.new(user: fake_user, city: 'chicago', scheduled_for: 'not a fucking datetime')
@@ -72,6 +74,50 @@ RSpec.describe Appointment, :type => :model do
                     expect(appointment.student_id).to eq student.id
                     expect(appointment.student).to eq student
                     expect(appointment.requested?).to be_truthy
+                end
+            end
+
+            describe "fulfill_request" do
+                it "attaches valid mentor to requested appointment and changes state if it doesn't currently have one" do
+                    student = FactoryGirl.create(:user)
+                    mentor = FactoryGirl.create(:user)
+
+                    appointment.request student
+
+                    appointment.fulfill_request mentor
+
+                    expect(appointment.mentor_id).to eq mentor.id
+                    expect(appointment.mentor).to eq mentor
+                    expect(appointment.fulfilled?).to be_truthy
+                end
+
+                it "doesn't attach invalid mentor to requested appointment or change state if it doesn't currently have one" do
+                    student = FactoryGirl.create(:user)
+                    mentor = User.create
+
+                    appointment.request student
+
+                    appointment.fulfill_request mentor
+
+                    expect(appointment.mentor_id).to eq nil
+                    expect(appointment.mentor).to eq nil
+                    expect(appointment.fulfilled?).to be_falsy
+                end
+
+                it "doesn't attach valid mentor to requested appointment or change state if it does currently have one" do
+                    student = FactoryGirl.create(:user)
+                    mentor = FactoryGirl.create(:user)
+                    mentor2 = FactoryGirl.create(:user)
+
+                    appointment.request student
+
+                    appointment.fulfill_request mentor
+
+                    appointment.fulfill_request mentor2
+
+                    expect(appointment.mentor_id).to eq mentor.id
+                    expect(appointment.mentor).to eq mentor
+                    expect(appointment.fulfilled?).to be_truthy
                 end
             end
 
