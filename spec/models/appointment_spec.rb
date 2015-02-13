@@ -41,21 +41,24 @@ RSpec.describe Appointment, :type => :model do
 
         describe "state change event methods" do
             describe "request" do
-                it "attaches student to appointment if it doesn't currently have one, then changes state" do
-                    # student = FactoryGirl.create(:user)
-                    student = User.create
+                it "attaches valid student to appointment and changes state if it doesn't currently have one" do
+                    student = FactoryGirl.create(:user)
 
-                    p student
-                    p appointment
+                    appointment.request student
 
-                    p appointment.request! student
-
-                    p appointment
-                    p appointment.student
+                    expect(appointment.student_id).not_to be nil
+                    expect(appointment.student).not_to be nil
+                    expect(appointment.requested?).to be_truthy
                 end
 
-                it "doesn't attach student to appointment if it already has one" do
+                it "doesn't attach invalid student to appointment or change state if it doesn't currently have one" do
+                    student = User.create
 
+                    appointment.request student
+
+                    expect(appointment.student_id).to be nil
+                    expect(appointment.student).to be nil
+                    expect(appointment.created?).to be_truthy
                 end
             end
         end
