@@ -31,4 +31,33 @@ RSpec.describe Appointment, :type => :model do
             end
         end
     end
+
+    describe "instance functionality" do
+        let(:appointment) { FactoryGirl.create(:appointment) }
+
+        it "has a valid factory" do
+            expect(appointment).to be_valid
+        end
+
+        describe "state change event methods" do
+            describe "request" do
+                it "attaches student to appointment if it doesn't currently have one, then changes state" do
+                    # student = FactoryGirl.create(:user)
+                    student = User.create
+
+                    p student
+                    p appointment
+
+                    p appointment.request! student
+
+                    p appointment
+                    p appointment.student
+                end
+
+                it "doesn't attach student to appointment if it already has one" do
+
+                end
+            end
+        end
+    end
 end

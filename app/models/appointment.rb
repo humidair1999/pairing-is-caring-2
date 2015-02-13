@@ -70,6 +70,7 @@ class Appointment < ActiveRecord::Base
 
         # methods for managing student
         def attach_student(student)
+            p "student valid? " + student.valid?.to_s
             self.student = student if self.student.nil?
         end
 
@@ -78,6 +79,7 @@ class Appointment < ActiveRecord::Base
         end
 
         def only_has_student?
+            p !self.student.nil? && self.mentor.nil?
             !self.student.nil? && self.mentor.nil?
         end
 
