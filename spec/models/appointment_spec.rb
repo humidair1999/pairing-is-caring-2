@@ -46,8 +46,8 @@ RSpec.describe Appointment, :type => :model do
 
                     appointment.request student
 
-                    expect(appointment.student_id).not_to be nil
-                    expect(appointment.student).not_to be nil
+                    expect(appointment.student_id).to eq student.id
+                    expect(appointment.student).to eq student
                     expect(appointment.requested?).to be_truthy
                 end
 
@@ -56,9 +56,22 @@ RSpec.describe Appointment, :type => :model do
 
                     appointment.request student
 
-                    expect(appointment.student_id).to be nil
-                    expect(appointment.student).to be nil
-                    expect(appointment.created?).to be_truthy
+                    expect(appointment.student_id).to eq nil
+                    expect(appointment.student).to eq nil
+                    expect(appointment.requested?).to be_falsy
+                end
+
+                it "doesn't attach valid student to appointment or change state if it does currently have one" do
+                    student = FactoryGirl.create(:user)
+                    student2 = FactoryGirl.create(:user)
+
+                    appointment.request student
+
+                    appointment.request student2
+
+                    expect(appointment.student_id).to eq student.id
+                    expect(appointment.student).to eq student
+                    expect(appointment.requested?).to be_truthy
                 end
             end
         end

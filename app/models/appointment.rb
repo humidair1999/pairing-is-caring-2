@@ -83,7 +83,7 @@ class Appointment < ActiveRecord::Base
 
         # methods for managing mentor
         def attach_mentor(mentor)
-            self.mentor = mentor if self.mentor.nil?
+            self.mentor = mentor if self.mentor.nil? && mentor.valid?
         end
 
         def remove_mentor(mentor)
