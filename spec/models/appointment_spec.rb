@@ -121,6 +121,39 @@ RSpec.describe Appointment, :type => :model do
                 end
             end
 
+            describe "cancel_request" do
+                it "removes student from fulfilled appointment and changes state if student was requester" do
+                    student = FactoryGirl.create(:user)
+                    mentor = FactoryGirl.create(:user)
+
+                    appointment.request student
+
+                    appointment.fulfill_request mentor
+
+                    appointment.cancel_request student
+
+                    expect(appointment.student_id).to eq nil
+                    expect(appointment.student).to eq nil
+                    expect(appointment.offered?).to be_truthy
+                end
+
+                it "doesn't remove student from fulfilled appointment or change state if student wasn't requester" do
+                    student = FactoryGirl.create(:user)
+                    student2 = FactoryGirl.create(:user)
+                    mentor = FactoryGirl.create(:user)
+
+                    appointment.request student
+
+                    appointment.fulfill_request mentor
+
+                    appointment.cancel_request student2
+
+                    expect(appointment.student_id).to eq student.id
+                    expect(appointment.student).to eq student
+                    expect(appointment.offered?).to be_falsy
+                end
+            end
+
             describe "offer" do
                 it "attaches valid mentor to appointment and changes state if it doesn't currently have one" do
                     mentor = FactoryGirl.create(:user)
